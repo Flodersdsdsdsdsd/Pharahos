@@ -741,7 +741,7 @@ if (message.content.startsWith(admin + 'setavatar')) {
 
 
 client.on('message', message => {
-    if (message.content === (prefix) + 'roles') {
+    if (message.content === 'proles') {
        if(!message.channel.guild) return message.reply('**  الامر للسيرفرات فقط. ## **');
        if(!message.member.hasPermission("MANAGE_ROLES")) return message.reply('**# - ليس لديك الصلاحيات لستخدام هذا الامر **');
         var roles = message.guild.roles.map(roles => `${roles.name}, `).join(' ')
