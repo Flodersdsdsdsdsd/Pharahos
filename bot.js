@@ -78,11 +78,11 @@ if(message.content === adminprefix + "restart") {
 
 
 client.on('voiceStateUpdate', (old, now) => {
-  const channel = client.channels.get('478193303754637315');
+  const channel = client.channels.get('465886262960717824');
   const currentSize = channel.guild.members.filter(m => m.voiceChannel).size;
   const size = channel.name.match(/\[\s(\d+)\s\]/);
-  if (!size) return channel.setName(`Voice Online : ${currentSize}.`);
-  if (currentSize !== size) channel.setName(`Voice Online : ${currentSize}.`);
+  if (!size) return channel.setName(`Voíce Pharaoh : ${currentSize}.`);
+  if (currentSize !== size) channel.setName(`Voíce Pharaoh : ${currentSize}.`);
 });
 
 
