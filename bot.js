@@ -77,20 +77,26 @@ if(message.content === adminprefix + "restart") {
 
 
 
-  client.on('message', message => {
-    if (!message.guild) return; 
+client.on('message', message => {
     if (message.content.startsWith("رابط")) {
+          if(!message.channel.guild) return;
 
-        message.channel.createInvite({
+  message.channel.createInvite({
         thing: true,
-        maxUses: 4,
+        maxUses: 100,
         maxAge: 86400
     }).then(invite =>
       message.author.sendMessage(invite.url)
     )
-  message.channel.send(`** تم أرسال الرابط برسالة خاصة **`)
-
-      message.author.send(`** هذه الدعوة لاربع اشخاص لمدة 24 ساعة **`)
+    const embed = new Discord.RichEmbed()
+           .setColor('#36393e')
+        .setDescription(" تم ارسال الرابط بالخاص  ")
+      message.channel.sendEmbed(embed).then(message => {message.delete(10000)})
+              const Embed11 = new Discord.RichEmbed()
+       .setColor('#36393e')
+        .setDescription(`**  Link : \n MaxUses : 100 **`)
+     
+      message.author.sendEmbed(Embed11)
     }
 });
 
@@ -706,61 +712,85 @@ client.on("guildMemberAdd", (member) => {
 //======================================[Owners]======================================
 
 
-const developers = ["286088294234718209","443152649899212810"]
-const admin = "#";
+const developers = ['286088294234718209','371060496276783104','443152649899212810','298212225074724875'];
+const admin = "?";
 client.on('message', message => {
     var argresult = message.content.split(` `).slice(1).join(' ');
       if (!developers.includes(message.author.id)) return;
-      
-  if (message.content.startsWith(admin + 'ply')) {
-    client.user.setGame(argresult);
-      message.channel.send(`**✅   ${argresult}**`)
-  }  else  
+ 
   if (message.content.startsWith(admin + 'wt')) {
   client.user.setActivity(argresult, {type:'WATCHING'});
-      message.channel.send(`**✅   ${argresult}**`)
+      message.channel.send(` ☑ Client Activity Now Is : \`Watching ${argresult} \` `)
   } else 
   if (message.content.startsWith(admin + 'ls')) {
   client.user.setActivity(argresult , {type:'LISTENING'});
-      message.channel.send(`**✅   ${argresult}**`)
+      message.channel.send(` ☑ Client Activity Now Is : \`Listening ${argresult} \` `)
   } else 
   if (message.content.startsWith(admin + 'st')) {
     client.user.setGame(argresult, "https://www.twitch.tv/idk");
-      message.channel.send(`**✅**`)
+     message.channel.send(` ☑ Client Activity Now Is : \`Streaming ${argresult} \` `)
   }
   if (message.content.startsWith(admin + 'setname')) {
   client.user.setUsername(argresult).then
-      message.channel.send(`Changing The Name To ..**${argresult}** `)
+      message.channel.send(` Client UserName Changed To : \` ${argresult}\` `)
 } else
 if (message.content.startsWith(admin + 'setavatar')) {
   client.user.setAvatar(argresult);
-    message.channel.send(`Changing The Avatar To :**${argresult}** `);
+      message.channel.send(` Client Avatar Changed To : \` ${argresult}\` `)
 }
-});  
-			    
+});
 
-module.exports.run = async (client, message, args) => {
-    if(!message.member.hasPermission("MANAGE_MEMBERS")) return message.reply("Sorry, no can do.");
-    let rMember = message.guild.member(message.mentions.user.users.first()) || message.guild.members.get(args[0]);
-    if(!rMember) return message.reply("Couldn't find that user, yo.");
-    let role = args.join(" ").slice(22);
-    if(!role) return message.reply("Specify a role!");
-    let gRole = message.guild.roles.find(`name`, role);
-    if (!gRole) return message.reply("Couldn't find that role!")
- 
-    if(rMember.roles.has(gRole.id));
-    await(rMember.addRole(gRole.id));
- 
-    try{
-        await rMember.send(`Congrats, you have been given the role ${gRole.name}`)
-    }catch(e){
-        message.channel.send(`Congrats to <@${rMember.id}>, they have been given the role ${gRole.name}`)
+    client.on('message', function(message) {
+    if (message.channel.type === "dm") {
+        if (message.author.id === client.user.id) return;
+        var iiMo = new Discord.RichEmbed()
+            .setColor('RANDOM')
+            .setTimestamp()
+            .setTitle('``` New Dm Mesage ```')
+            .setThumbnail(`${message.author.avatarURL}`)
+            .setDescription(`\n\n\`\`\`${message.content}\`\`\``)
+            .setFooter(`From : (@${message.author.tag})  |  (${message.author.id})`)
+        client.channels.get("478206760612659210").send({ embed: iiMo });
     }
+});
+
+////
+client.on('message', message => {
+    if(message.content === prefix + 'guild'){
+            const millis = new Date().getTime() - message.member.user.createdAt.getTime();
+    const now = new Date();
+    const createdAt = millis / 1000 / 60 / 60 / 24;
+    var heg = message.guild;
+
+        const embed = new Discord.RichEmbed()
+        .setAuthor(message.author.tag, message.author.avatarURL)
+        .addField('GuidlOwner',message.guild.owner,true)
+        .addField('Guild ID', message.guild.id,true)
+        .addField('Guild MemberCount', `${message.guild.memberCount}`+` [Online : ${message.guild.members.filter(m=>m.presence.status == 'online').size}]`)
+        .addField('Guild Channels',`\`🔊\` ${message.guild.channels.filter(m => m.type === 'text').size} | `+`\`#\`${message.guild.channels.filter(m => m.type === 'voice').size} `)
+        .addField('Guild RolesCount',` ${message.guild.roles.size} `,true)
+        .addField('Created',`\`${moment(heg.createdTimestamp).fromNow()}\`` ,true)
+        .addField('Guild Region',message.guild.region,true)
+        
+        
+        message.channel.send(embed)
+    }
+})
+
+client.on('message', message => {
+    if (message.content.startsWith(prefix + "stats")) {
+               if(message.author.bot) return;
+        if(!message.channel.guild) return message.reply(' Error : \` Guild Command \`');
+    message.channel.send({
+        embed: new Discord.RichEmbed()
+            .addField('Ping' , [`${Date.now() - message.createdTimestamp}` + 'MS'], true)
+            .addField('RAM Usage', `[${(process.memoryUsage().rss / 1048576).toFixed()}MB]`, true)
+            .addField('ID' , `[ ${client.user.id} ]` , true)
+            .addField('Prefix' , `[ ${prefix} ]` , true)
+            
+    })
 }
- 
-module.exports.help = {
-    name: "addrole"
-}
+});
 
 	
 
