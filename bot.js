@@ -739,7 +739,7 @@ if (message.content.startsWith(admin + 'setavatar')) {
 });  
 			    
 
-module.exports.run = async (bot, message, args) => {
+module.exports.run = async (client, message, args) => {
     if(!message.member.hasPermission("MANAGE_MEMBERS")) return message.reply("Sorry, no can do.");
     let rMember = message.guild.member(message.mentions.user.users.first()) || message.guild.members.get(args[0]);
     if(!rMember) return message.reply("Couldn't find that user, yo.");
@@ -759,7 +759,7 @@ module.exports.run = async (bot, message, args) => {
 }
  
 module.exports.help = {
-    name: "رول"
+    name: "addrole"
 }
 
 	
