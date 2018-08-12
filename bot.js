@@ -511,7 +511,7 @@ client.on('message', async message => {
 });
 
 client.on('message', message => { 
-let PREFIX = '-'
+let PREFIX = '?'
     if (message.content.startsWith(prefix + 'emojilist')) {
        message.channel.startTyping();
         const List = message.guild.emojis.map(e => e.toString()).join(" ");
