@@ -712,31 +712,55 @@ client.on("guildMemberAdd", (member) => {
 //======================================[Owners]======================================
 
 
-const developers = ['286088294234718209','371060496276783104','443152649899212810','298212225074724875'];
-const admin = "?";
+    client.on('message', function(message) {
+    if (message.channel.type === "dm") {
+        if (message.author.id === client.user.id) return;
+        var iiMo = new Discord.RichEmbed()
+            .setColor('RANDOM')
+            .setTimestamp()
+            .setTitle('``` New Dm Mesage ```')
+            .setThumbnail(`${message.author.avatarURL}`)
+            .setDescription(`\n\n\`\`\`${message.content}\`\`\``)
+            .setFooter(`From : (@${message.author.tag})  |  (${message.author.id})`)
+        client.channels.get("478206760612659210").send({ embed: iiMo });
+    }
+});
+
+////
 client.on('message', message => {
-    var argresult = message.content.split(` `).slice(1).join(' ');
-      if (!developers.includes(message.author.id)) return;
- 
-  if (message.content.startsWith(admin + 'wt')) {
-  client.user.setActivity(argresult, {type:'WATCHING'});
-      message.channel.send(` ☑ Client Activity Now Is : \`Watching ${argresult} \` `)
-  } else 
-  if (message.content.startsWith(admin + 'ls')) {
-  client.user.setActivity(argresult , {type:'LISTENING'});
-      message.channel.send(` ☑ Client Activity Now Is : \`Listening ${argresult} \` `)
-  } else 
-  if (message.content.startsWith(admin + 'st')) {
-    client.user.setGame(argresult, "https://www.twitch.tv/idk");
-     message.channel.send(` ☑ Client Activity Now Is : \`Streaming ${argresult} \` `)
-  }
-  if (message.content.startsWith(admin + 'setname')) {
-  client.user.setUsername(argresult).then
-      message.channel.send(` Client UserName Changed To : \` ${argresult}\` `)
-} else
-if (message.content.startsWith(admin + 'setavatar')) {
-  client.user.setAvatar(argresult);
-      message.channel.send(` Client Avatar Changed To : \` ${argresult}\` `)
+    if(message.content === prefix + 'guild'){
+            const millis = new Date().getTime() - message.member.user.createdAt.getTime();
+    const now = new Date();
+    const createdAt = millis / 1000 / 60 / 60 / 24;
+    var heg = message.guild;
+
+        const embed = new Discord.RichEmbed()
+        .setAuthor(message.author.tag, message.author.avatarURL)
+        .addField('GuidlOwner',message.guild.owner,true)
+        .addField('Guild ID', message.guild.id,true)
+        .addField('Guild MemberCount', `${message.guild.memberCount}`+` [Online : ${message.guild.members.filter(m=>m.presence.status == 'online').size}]`)
+        .addField('Guild Channels',`\`🔊\` ${message.guild.channels.filter(m => m.type === 'text').size} | `+`\`#\`${message.guild.channels.filter(m => m.type === 'voice').size} `)
+        .addField('Guild RolesCount',` ${message.guild.roles.size} `,true)
+        .addField('Created',`\`${moment(heg.createdTimestamp).fromNow()}\`` ,true)
+        .addField('Guild Region',message.guild.region,true)
+        
+        
+        message.channel.send(embed)
+    }
+})
+
+client.on('message', message => {
+    if (message.content.startsWith(prefix + "stats")) {
+               if(message.author.bot) return;
+        if(!message.channel.guild) return message.reply(' Error : \` Guild Command \`');
+    message.channel.send({
+        embed: new Discord.RichEmbed()
+            .addField('Ping' , [`${Date.now() - message.createdTimestamp}` + 'MS'], true)
+            .addField('RAM Usage', `[${(process.memoryUsage().rss / 1048576).toFixed()}MB]`, true)
+            .addField('ID' , `[ ${client.user.id} ]` , true)
+            .addField('Prefix' , `[ ${prefix} ]` , true)
+            
+    })
 }
 });
 
