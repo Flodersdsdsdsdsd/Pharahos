@@ -22,7 +22,7 @@ const queue = new Map();
 const client = new Discord.Client();
 const adminprefix = "k!";
 const devs = ['286088294234718209'];
-const prefix = '?'
+const prefix = 'p'
 
 client.on('ready', () => {
 	// - 
@@ -688,58 +688,6 @@ client.on("guildMemberAdd", (member) => {
 			    
 //======================================[Owners]======================================
 
-
-    client.on('message', function(message) {
-    if (message.channel.type === "dm") {
-        if (message.author.id === client.user.id) return;
-        var iiMo = new Discord.RichEmbed()
-            .setColor('RANDOM')
-            .setTimestamp()
-            .setTitle('``` New Dm Mesage ```')
-            .setThumbnail(`${message.author.avatarURL}`)
-            .setDescription(`\n\n\`\`\`${message.content}\`\`\``)
-            .setFooter(`From : (@${message.author.tag})  |  (${message.author.id})`)
-        client.channels.get("478206760612659210").send({ embed: iiMo });
-    }
-});
-
-////
-client.on('message', message => {
-    if(message.content === prefix + 'guild'){
-            const millis = new Date().getTime() - message.member.user.createdAt.getTime();
-    const now = new Date();
-    const createdAt = millis / 1000 / 60 / 60 / 24;
-    var heg = message.guild;
-
-        const embed = new Discord.RichEmbed()
-        .setAuthor(message.author.tag, message.author.avatarURL)
-        .addField('GuidlOwner',message.guild.owner,true)
-        .addField('Guild ID', message.guild.id,true)
-        .addField('Guild MemberCount', `${message.guild.memberCount}`+` [Online : ${message.guild.members.filter(m=>m.presence.status == 'online').size}]`)
-        .addField('Guild Channels',`\`🔊\` ${message.guild.channels.filter(m => m.type === 'text').size} | `+`\`#\`${message.guild.channels.filter(m => m.type === 'voice').size} `)
-        .addField('Guild RolesCount',` ${message.guild.roles.size} `,true)
-        .addField('Created',`\`${moment(heg.createdTimestamp).fromNow()}\`` ,true)
-        .addField('Guild Region',message.guild.region,true)
-        
-        
-        message.channel.send(embed)
-    }
-})
-
-client.on('message', message => {
-    if (message.content.startsWith(prefix + "stats")) {
-               if(message.author.bot) return;
-        if(!message.channel.guild) return message.reply(' Error : \` Guild Command \`');
-    message.channel.send({
-        embed: new Discord.RichEmbed()
-            .addField('Ping' , [`${Date.now() - message.createdTimestamp}` + 'MS'], true)
-            .addField('RAM Usage', `[${(process.memoryUsage().rss / 1048576).toFixed()}MB]`, true)
-            .addField('ID' , `[ ${client.user.id} ]` , true)
-            .addField('Prefix' , `[ ${prefix} ]` , true)
-            
-    })
-}
-});
 
 	
 
