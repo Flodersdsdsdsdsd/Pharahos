@@ -274,7 +274,7 @@ client.on('ready', () => {
 
 client.on('guildMemberAdd', member => {
 
-    const channel = member.guild.channels.find('name', 'chat');
+    const channel = member.guild.channels.find('name', 'Pharahos');
   
     const millis = new Date().getTime() - member.user.createdAt.getTime();
     const now = new Date();
@@ -565,7 +565,7 @@ var Canvas = require('canvas');// npm i canvas
 var jimp = require('jimp');// npm i jimp 
 
       client.on('guildMemberAdd', member => {
-      const welcomer =  member.guild.channels.find('name', 'chat');//اسم الروم الي يرحب فيه
+      const welcomer =  member.guild.channels.find('name', 'Pharahos');//اسم الروم الي يرحب فيه
 
       var Canvas = require('canvas')
       var jimp = require('jimp')
@@ -628,7 +628,7 @@ var jimp = require('jimp');// npm i jimp
 
 
 client.on('guildMemberAdd', member => {
-  const channel = member.guild.channels.find('name', 'chat');
+  const channel = member.guild.channels.find('name', 'Pharahos');
   if (!channel) return;
   channel.send(`${member}`);
 });
