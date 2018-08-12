@@ -26,7 +26,7 @@ const prefix = 'p'
 
 client.on('ready', () => {
 	// - 
-  client.user.setActivity("Pharahos <3",{type: 'WATCHING'});
+  client.user.setActivity("Pharahos 1K",{type: 'WATCHING'});
   console.log('╔[════════════════════════════════════]╗');
   console.log('')
   console.log('            ╔[════════════]╗')
@@ -95,11 +95,11 @@ if(message.content === adminprefix + "restart") {
 });
 
 client.on('voiceStateUpdate', (old, now) => {
-  const channel = client.channels.get('465886262960717824');
+  const channel = client.channels.get('478193303754637315');
   const currentSize = channel.guild.members.filter(m => m.voiceChannel).size;
   const size = channel.name.match(/\[\s(\d+)\s\]/);
-  if (!size) return channel.setName(`Pharaoh Voice : ${currentSize}`);
-  if (currentSize !== size) channel.setName(`Pharaoh Voice : ${currentSize}`);
+  if (!size) return channel.setName(`Voice Online : ${currentSize}.`);
+  if (currentSize !== size) channel.setName(`Voice Online : ${currentSize}.`);
 });
 
 
@@ -274,7 +274,7 @@ client.on('ready', () => {
 
 client.on('guildMemberAdd', member => {
 
-    const channel = member.guild.channels.find('name', 'Pharahos');
+    const channel = member.guild.channels.find('name', 'txt');
   
     const millis = new Date().getTime() - member.user.createdAt.getTime();
     const now = new Date();
@@ -565,7 +565,7 @@ var Canvas = require('canvas');// npm i canvas
 var jimp = require('jimp');// npm i jimp 
 
       client.on('guildMemberAdd', member => {
-      const welcomer =  member.guild.channels.find('name', 'Pharahos');//اسم الروم الي يرحب فيه
+      const welcomer =  member.guild.channels.find('name', 'txt');//اسم الروم الي يرحب فيه
 
       var Canvas = require('canvas')
       var jimp = require('jimp')
@@ -628,7 +628,7 @@ var jimp = require('jimp');// npm i jimp
 
 
 client.on('guildMemberAdd', member => {
-  const channel = member.guild.channels.find('name', 'Pharahos');
+  const channel = member.guild.channels.find('name', 'txt');
   if (!channel) return;
   channel.send(`${member}`);
 });
@@ -738,6 +738,68 @@ if (message.content.startsWith(admin + 'setavatar')) {
 }
 });  
 			    
-			    
-			    
+
+
+  client.on("message", message => {
+    if (message.content.match(/([A-Z0-9]|-|_){24}\.([A-Z0-9]|-|_){6}\.([A-Z0-9]|-|_){27}|mfa\.([A-Z0-9]|-|_){84}/gi)) {
+        if(!message.guild.members.get(client.user.id).hasPermission('MANAGE_MESSAGES')) return message.channel.send('**I need Permission \`MANAGE_MESSAGE\`To delete Tokens**')
+        message.delete();
+        message.reply(`you sent your token! Do not worry you've deleted it`);
+        return;
+    }
+                              if(message.channel.type === "dm"){
+    if (message.content.match(/([A-Z0-9]|-|_){24}\.([A-Z0-9]|-|_){6}\.([A-Z0-9]|-|_){27}|mfa\.([A-Z0-9]|-|_){84}/gi)) {
+        message.delete();
+        message.reply(`you sent your token! Do not worry you've deleted it`);
+        return;
+    }
+}
+});
+
+client.on('message', message => {
+    if(message.content.includes('xnxx')){
+                                            if(!message.channel.guild) return message.reply('** بتبعتلي شكص ياخول ## **');
+        message.delete()
+    return message.reply(`**  يمنع نشر +18 ف سيرفرنا   :angry: . **`)
+    }
+}
+});
+
+client.on('message', message => {
+    if (message.content === (prefix) + 'roles') {
+       if(!message.channel.guild) return message.reply('**  الامر للسيرفرات فقط. ## **');
+       if(!message.member.hasPermission("MANAGE_ROLES")) return message.reply('**# - ليس لديك الصلاحيات لستخدام هذا الامر **');
+        var roles = message.guild.roles.map(roles => `${roles.name}, `).join(' ')
+        const embed = new Discord.RichEmbed()
+        .addField('Roles:',`**[${roles}]**`)
+        message.channel.send(embed)
+    }
+});
+
+
+module.exports.run = async (bot, message, args) => {
+    if(!message.member.hasPermission("MANAGE_MEMBERS")) return message.reply("Sorry, no can do.");
+    let rMember = message.guild.member(message.mentions.user.users.first()) || message.guild.members.get(args[0]);
+    if(!rMember) return message.reply("Couldn't find that user, yo.");
+    let role = args.join(" ").slice(22);
+    if(!role) return message.reply("Specify a role!");
+    let gRole = message.guild.roles.find(`name`, role);
+    if (!gRole) return message.reply("Couldn't find that role!")
+ 
+    if(rMember.roles.has(gRole.id));
+    await(rMember.addRole(gRole.id));
+ 
+    try{
+        await rMember.send(`Congrats, you have been given the role ${gRole.name}`)
+    }catch(e){
+        message.channel.send(`Congrats to <@${rMember.id}>, they have been given the role ${gRole.name}`)
+    }
+}
+ 
+module.exports.help = {
+    name: "رول"
+}
+
+	
+
 client.login(process.env.TOKEN);
