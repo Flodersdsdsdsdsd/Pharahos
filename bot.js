@@ -20,6 +20,14 @@ const dateFormat = require('dateformat');
 const fs = require('fs');
 const queue = new Map();
 const client = new Discord.Client();
+// recation role
+const yourID = "286088294234718209"; //Instructions on how to get this: https://redd.it/40zgse
+const setupCMD = ".startrolesystem"
+let initialMessage = ` `;
+const roles = ["Games | قيمز", "Swalff | سوالف", "Creative Destruction | كريتف ديستركشن", "Fortnite | فورت نايت", "Black Squad | بلاك اسكواد", "Roblox | روبلوكس", "Minecraft | ماين كرافت", "Crossfire | كروس فاير", "Mta | جراند اون لاين", "Rainbow Six Siege | رينبو 6 سيج", "League Of Legends | ليجو اوف ليجيندز", "Knives Out | كنايفس اوت", "Battlefield | باتل فيلد", "PUBG | بابجي" ,"Agario | اقاريو", "Iron Sight | ايرون سايت", "Rust | راست", "Brawlhalla | بروهلا"];
+const reactions = ["🐦", "🐦", "🔫", "🔫", "⛏", "🛡", "🚓", "🔫", "⛏", "🛡", "🚓", "🔫", "⛏", "🛡", "🚓", "🔫", "⛏", "🛡", "🚓"];
+// end reaction role.
+client.login(process.env.TOKEN);
 const adminprefix = "k!";
 const devs = ['286088294234718209'];
 const prefix = '.'
@@ -93,68 +101,6 @@ client.on('message', message => {
     }
 });
 
-
-//Settings!
-const yourID = "286088294234718209"; //Instructions on how to get this: https://redd.it/40zgse
-const setupCMD = ".startrolesystem"
-let initialMessage = ` `;
-const roles = ["Games | قيمز", "Swalff | سوالف", "Creative Destruction | كريتف ديستركشن", "Fortnite | فورت نايت", "Black Squad | بلاك اسكواد", "Roblox | روبلوكس", "Minecraft | ماين كرافت", "Crossfire | كروس فاير", "Mta | جراند اون لاين", "Rainbow Six Siege | رينبو 6 سيج", "League Of Legends | ليجو اوف ليجيندز", "Knives Out | كنايفس اوت", "Battlefield | باتل فيلد", "PUBG | بابجي" ,"Agario | اقاريو", "Iron Sight | ايرون سايت", "Rust | راست", "Brawlhalla | بروهلا"];
-const reactions = ["🐦", "🐦", "🔫", "🔫", "⛏", "🛡", "🚓", "🔫", "⛏", "🛡", "🚓", "🔫", "⛏", "🛡", "🚓", "🔫", "⛏", "🛡", "🚓"];
-
-//If there isn't a reaction for every role, scold the user!
-if (roles.length !== reactions.length) throw "Roles list and reactions list are not the same length!";
-
-//Function to generate the role messages, based on your settings
-function generateMessages(){
-    var messages = [];
-    messages.push(initialMessage);
-    for (let role of roles) messages.push(` **"${role}"**`); //لا تغير هذا
-    return messages;
-}
-
-
-client.on("message", message => {
-    if (message.author.id == yourID && message.content.toLowerCase() == setupCMD){
-        var toSend = generateMessages();
-        let mappedArray = [[toSend[0], false], ...toSend.slice(1).map( (message, idx) => [message, reactions[idx]])];
-        for (let mapObj of mappedArray){
-            message.channel.send(mapObj[0]).then( sent => {
-                if (mapObj[1]){
-                  sent.react(mapObj[1]);
-                }
-            });
-        }
-    }
-})
-
-
-client.on('raw', event => {
-    if (event.t === 'MESSAGE_REACTION_ADD' || event.t == "MESSAGE_REACTION_REMOVE"){
-
-        let channel = client.channels.get(event.d.channel_id);
-        let message = channel.fetchMessage(event.d.message_id).then(msg=> {
-        let user = msg.guild.members.get(event.d.user_id);
-
-        if (msg.author.id == client.user.id && msg.content != initialMessage){
-
-            var re = `\\*\\*"(.+)?(?="\\*\\*)`;
-            var role = msg.content.match(re)[1];
-
-            if (user.id != client.user.id){
-                var roleObj = msg.guild.roles.find('name', role);
-                var memberObj = msg.guild.members.get(user.id);
-
-                if (event.t === "MESSAGE_REACTION_ADD"){
-                    memberObj.addRole(roleObj)
-                } else {
-                    memberObj.removeRole(roleObj);
-                }
-            }
-        }
-        })
-
-    }
-});
 
 /////
 
@@ -796,7 +742,57 @@ client.on("guildMemberAdd", (member) => {
 			    
 //======================================[Owners]======================================
 
+//If there isn't a reaction for every role, scold the user!
+if (roles.length !== reactions.length) throw "Roles list and reactions list are not the same length!";
 
-	
+//Function to generate the role messages, based on your settings
+function generateMessages(){
+    var messages = [];
+    messages.push(initialMessage);
+    for (let role of roles) messages.push(` **"${role}"**`); //لا تغير هذا
+    return messages;
+}
 
-client.login(process.env.TOKEN);
+
+client.on("message", message => {
+    if (message.author.id == yourID && message.content.toLowerCase() == setupCMD){
+        var toSend = generateMessages();
+        let mappedArray = [[toSend[0], false], ...toSend.slice(1).map( (message, idx) => [message, reactions[idx]])];
+        for (let mapObj of mappedArray){
+            message.channel.send(mapObj[0]).then( sent => {
+                if (mapObj[1]){
+                  sent.react(mapObj[1]);
+                }
+            });
+        }
+    }
+})
+
+
+client.on('raw', event => {
+    if (event.t === 'MESSAGE_REACTION_ADD' || event.t == "MESSAGE_REACTION_REMOVE"){
+
+        let channel = client.channels.get(event.d.channel_id);
+        let message = channel.fetchMessage(event.d.message_id).then(msg=> {
+        let user = msg.guild.members.get(event.d.user_id);
+
+        if (msg.author.id == client.user.id && msg.content != initialMessage){
+
+            var re = `\\*\\*"(.+)?(?="\\*\\*)`;
+            var role = msg.content.match(re)[1];
+
+            if (user.id != client.user.id){
+                var roleObj = msg.guild.roles.find('name', role);
+                var memberObj = msg.guild.members.get(user.id);
+
+                if (event.t === "MESSAGE_REACTION_ADD"){
+                    memberObj.addRole(roleObj)
+                } else {
+                    memberObj.removeRole(roleObj);
+                }
+            }
+        }
+        })
+
+    }
+});
