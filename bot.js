@@ -73,25 +73,20 @@ Developer By : <@286088294234718209>
 
    }
    });
+
 client.on('message', message => {
-    if (message.content === 'newsystem2') {
+      if(message.author.id !== '286088294234718209') return;
+    if (message.content === initcmd +'newsystem2') {
         message.channel.sendFile("https://media.discordapp.net/attachments/480059231492374531/480059818279960576/image-16-1.png?width=866&height=47", "kahrba.png")
     }
 });
 
+client.on('message', message => {
+    if (message.content === initcmd +'newsystem3') {
+        message.channel.send('**خد الرتبة الي تبية من الاسفل فقط اضغط علي الايموجي وفي حالة تريد ازالة شيل الايموجي.."**')
+    }
+});
 
-   client.on("message", message => {
-      if(message.author.id !== '286088294234718209') return;
-    if (message.content === initcmd +"newsystem3") {
-     const embed = new Discord.RichEmbed()
-         .setColor("36393f")
-         .setDescription(`**
-خد الرتبة الي تبية من الاسفل فقط اضغط علي الايموجي وفي حالة تريد ازالة شيل الايموجي
-**`)
-   message.channel.send({embed});
-
-   }
-   });
 
 
 client.on('message', msg => {
