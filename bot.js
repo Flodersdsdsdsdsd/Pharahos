@@ -22,7 +22,7 @@ const queue = new Map();
 const client = new Discord.Client();
 const adminprefix = "k!";
 const devs = ['286088294234718209'];
-const prefix = 'p'
+const prefix = '.'
 
 client.on('ready', () => {
 	// - 
@@ -50,6 +50,49 @@ message.channel.stopTyping()
 }, 3000);
 }
 });
+
+const version = ['v1.2']
+var initcmd = ['.']
+
+   client.on("message", message => {
+      if(message.author.id !== '286088294234718209') return;
+    if (message.content === initcmd +"newsystem1") {
+     const embed = new Discord.RichEmbed()
+         .setColor("36393f")
+         .setDescription(`**
+┏━━━┳┓╋╋╋╋╋╋╋╋╋┏┓
+┃┏━┓┃┃╋╋╋╋╋╋╋╋╋┃┃
+┃┗━┛┃┗━┳━━┳━┳━━┫┗━┳━━┳━━┓
+┃┏━━┫┏┓┃┏┓┃┏┫┏┓┃┏┓┃┏┓┃━━┫
+┃┃╋╋┃┃┃┃┏┓┃┃┃┏┓┃┃┃┃┗┛┣━━┃
+┗┛╋╋┗┛┗┻┛┗┻┛┗┛┗┻┛┗┻━━┻━━┛
+Bot Version : ${version}
+Developer By : <@286088294234718209>
+**`)
+   message.channel.send({embed});
+
+   }
+   });
+client.on('message', message => {
+    if (message.content === 'newsystem2') {
+        message.channel.sendFile("https://media.discordapp.net/attachments/480059231492374531/480059818279960576/image-16-1.png?width=866&height=47", "kahrba.png")
+    }
+});
+
+
+   client.on("message", message => {
+      if(message.author.id !== '286088294234718209') return;
+    if (message.content === initcmd +"newsystem3") {
+     const embed = new Discord.RichEmbed()
+         .setColor("36393f")
+         .setDescription(`**
+خد الرتبة الي تبية من الاسفل فقط اضغط علي الايموجي وفي حالة تريد ازالة شيل الايموجي
+**`)
+   message.channel.send({embed});
+
+   }
+   });
+
 
 client.on('message', msg => {
     if (msg.content == '#join-room') {
