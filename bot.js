@@ -25,7 +25,7 @@ const yourID = "286088294234718209"; //Instructions on how to get this: https://
 const setupCMD = ".startrolesystem"
 let initialMessage = ` `;
 const roles = ["Games | قيمز", "Swalff | سوالف", "Creative Destruction | كريتف ديستركشن", "Fortnite | فورت نايت", "Black Squad | بلاك اسكواد", "Roblox | روبلوكس", "Minecraft | ماين كرافت", "Crossfire | كروس فاير", "Mta | جراند اون لاين", "Rainbow Six Siege | رينبو 6 سيج", "League Of Legends | ليجو اوف ليجيندز", "Knives Out | كنايفس اوت", "Battlefield | باتل فيلد", "PUBG | بابجي" ,"Agario | اقاريو", "Iron Sight | ايرون سايت", "Rust | راست", "Brawlhalla | بروهلا"];
-const reactions = ["🐦", "🐦", "🔫", "🔫", "⛏", "🛡", "🚓", "🔫", "⛏", "🛡", "🚓", "🔫", "⛏", "🛡", "🚓", "🔫", "⛏", "🛡"];
+const reactions = ["🎮", "🐦", "🔫", "🔫", "⛏", "🛡", "🚓", "🔫", "⛏", "🛡", "🚓", "🔫", "⛏", "🛡", "🚓", "🔫", "⛏", "🛡"];
 // end reaction role.
 client.login(process.env.TOKEN);
 const adminprefix = "k!";
